@@ -1,0 +1,3 @@
+php_tree_index:
+    path:     /php/tree
+    defaults: { _controller: PHPTreeBundle:Index:index }
