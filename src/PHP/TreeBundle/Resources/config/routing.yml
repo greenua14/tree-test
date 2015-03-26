@@ -19,7 +19,7 @@ php_tree_update:
     defaults: { _controller: PHPTreeBundle:Index:update }
 
 php_tree_remove:
-    path:     /php/tree/remove
+    path:     /php/tree/remove/{id}
     defaults: { _controller: PHPTreeBundle:Index:remove }
 
 php_tree_treeStructure:

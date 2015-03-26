@@ -12,9 +12,9 @@
         <div>
             <p>
                 <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
-            </p>
-            <p>
+
                 <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update node</a>
+                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Remove node</a>
             </p>
         </div>
     {% endfor %}

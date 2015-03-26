@@ -8,18 +8,29 @@
 
     <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
 
-    {% for node in nodes if node.parent is null%}
+    {% for node in nodes if node.parent is null %}
         <div>
-            <p class="parent0"><a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a></p>
+            <p class="parent0">
+                <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
+
+                <a href="{{ path('php_tree_update', { 'id': node.id }) }}">---U---</a>
+                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">---D---</a>
+            </p>
 
             {% for child in node.children if node.children %}
                 <p class="parent1" style="margin-left: 50px">
                     <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
+
+                    <a href="{{ path('php_tree_update', { 'id': child.id }) }}">---U---</a>
+                    <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">---D---</a>
                 </p>
 
                 {% for c in child.children if child.children %}
                     <p class="parent02" style="margin-left: 100px">
                         <a href="{{ path('php_tree_show', { 'slug': c.slug }) }}"> - {{ c.title }}</a>
+
+                        <a href="{{ path('php_tree_update', { 'id': c.id }) }}">---U---</a>
+                        <a href="{{ path('php_tree_remove', { 'id': c.id }) }}">---D---</a>
                     </p>
                 {% endfor %}
 

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PHP\TreeBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController extends Controller
 {
@@ -99,9 +100,22 @@ class IndexController extends Controller
     /**
      * @Template()
      */
-    public function removeAction()
+    public function removeAction($id)
     {
-        return array();
+        $node = $this->get('php.tree.node_repository')->find($id);
+
+        if($node)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($node);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(
+                'php_tree_treeStructure'
+            ));
+        }
+
+        return new Response('No advert');
     }
 
     /**
