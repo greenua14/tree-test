@@ -6,7 +6,9 @@
 
     <h3><a href="{{ path('php_tree_index') }}">Main</a></h3>
 
-    <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
+    {% endif %}
 
     {% macro recursiveChild(node, margin) %}
         {% if node.children is not null %}
@@ -14,8 +16,10 @@
                 <p style="margin-left: {{ margin }}px">
                     <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
 
-                    <a href="{{ path('php_tree_update', { 'id': child.id }) }}">Update</a>
-                    <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">Delete</a>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('php_tree_update', { 'id': child.id }) }}">Update</a>
+                        <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">Delete</a>
+                    {% endif %}
                 </p>
                 {{ _self.recursiveChild(child, margin + 50) }}
             {% endfor %}
@@ -27,8 +31,10 @@
             <p>
                 <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
 
-                <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update</a>
-                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Delete</a>
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update</a>
+                    <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Delete</a>
+                {% endif %}
             </p>
             {% set margin = 50 %}
             {{ _self.recursiveChild(node, margin) }}

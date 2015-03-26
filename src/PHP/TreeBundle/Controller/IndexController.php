@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PHP\TreeBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class IndexController extends Controller
 {
@@ -48,6 +49,7 @@ class IndexController extends Controller
 
     /**
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function addAction(Request $request)
     {
@@ -73,6 +75,7 @@ class IndexController extends Controller
 
     /**
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -99,6 +102,7 @@ class IndexController extends Controller
 
     /**
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeAction($id)
     {
