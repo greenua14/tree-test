@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+           http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="php.tree.repository"
+                 factory-service="doctrine.orm.default_entity_manager"
+                 factory-method="getRepository"
+                 abstract="true">
+        </service>
+
+        <service id="php.tree.node_repository"
+                 class="PHP\TreeBundle\Repository\NodeRepository"
+                 parent="php.tree.repository">
+            <argument>PHP\TreeBundle\Entity\Node</argument>
+        </service>
+
+        <service id="node.form.type"
+                 class="PHP\TreeBundle\Form\NodeType">
+            <tag name="form.type" />
+        </service>
+
+    </services>
+</container>

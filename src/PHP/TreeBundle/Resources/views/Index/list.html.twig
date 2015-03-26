@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h1>list</h1>
+
+    <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
+
+    {% for node in nodes %}
+        <div>
+            <p><a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a></p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

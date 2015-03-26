@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h1>show</h1>
+
+    {% for node in nodeBySlug %}
+        <p>id:      {{ node.id }}</p>
+        <p>title:   {{ node.title }}</p>
+        <p>slug:    {{ node.slug }}</p>
+        <p>content: {{ node.content }}</p>
+        <p>date1:   {{ node.dateCreated|date("m/d/Y H:m:s") }}</p>
+        <p>date2:   {{ node.dateUpdated|date("m/d/Y H:m:s") }}</p>
+    {% endfor %}
+
+{% endblock %}
