@@ -18,17 +18,22 @@
             <h1>Current node tree</h1>
             <p>title:   {{ node.title }}</p>
 
-            {% for child in node.children %}
-                <p style="margin-left: 70px">title:   {{ child.title }}</p>
-
-                {% if child.children in not null %}
-                    children
-                {% endif %}
-
-            {% endfor %}
+            {% set margin = 50 %}
+            {{ _self.recursiveChild(node, margin) }}
 
         {% endif %}
 
     {% endfor %}
+
+    {% macro recursiveChild(node, margin) %}
+        {% if node.children is not null %}
+            {% for child in node.children %}
+                <p style="margin-left: {{ margin }}px">
+                    <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
+                </p>
+                {{ _self.recursiveChild(child, margin + 50) }}
+            {% endfor %}
+        {% endif %}
+    {% endmacro %}
 
 {% endblock %}

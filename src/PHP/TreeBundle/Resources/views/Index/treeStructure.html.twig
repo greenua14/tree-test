@@ -8,34 +8,30 @@
 
     <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
 
-    {% for node in nodes if node.parent is null %}
-        <div>
-            <p class="parent0">
-                <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
-
-                <a href="{{ path('php_tree_update', { 'id': node.id }) }}">---U---</a>
-                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">---D---</a>
-            </p>
-
-            {% for child in node.children if node.children %}
-                <p class="parent1" style="margin-left: 50px">
+    {% macro recursiveChild(node, margin) %}
+        {% if node.children is not null %}
+            {% for child in node.children %}
+                <p style="margin-left: {{ margin }}px">
                     <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
 
-                    <a href="{{ path('php_tree_update', { 'id': child.id }) }}">---U---</a>
-                    <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">---D---</a>
+                    <a href="{{ path('php_tree_update', { 'id': child.id }) }}">Update</a>
+                    <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">Delete</a>
                 </p>
-
-                {% for c in child.children if child.children %}
-                    <p class="parent02" style="margin-left: 100px">
-                        <a href="{{ path('php_tree_show', { 'slug': c.slug }) }}"> - {{ c.title }}</a>
-
-                        <a href="{{ path('php_tree_update', { 'id': c.id }) }}">---U---</a>
-                        <a href="{{ path('php_tree_remove', { 'id': c.id }) }}">---D---</a>
-                    </p>
-                {% endfor %}
-
+                {{ _self.recursiveChild(child, margin + 50) }}
             {% endfor %}
+        {% endif %}
+    {% endmacro %}
 
+    {% for node in nodes if node.parent is null %}
+        <div>
+            <p>
+                <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
+
+                <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update</a>
+                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Delete</a>
+            </p>
+            {% set margin = 50 %}
+            {{ _self.recursiveChild(node, margin) }}
         </div>
     {% endfor %}
 
