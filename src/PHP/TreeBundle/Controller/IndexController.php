@@ -61,7 +61,7 @@ class IndexController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl(
-                'php_tree_list'
+                'php_tree_treeStructure'
             ));
         }
 
@@ -73,9 +73,27 @@ class IndexController extends Controller
     /**
      * @Template()
      */
-    public function updateAction()
+    public function updateAction(Request $request, $id)
     {
-        return array();
+        $node = $this->get('php.tree.node_repository')->find($id);
+        $formType = $this->get('node.form.type');
+        $form = $this->createForm($formType, $node);
+
+        $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(
+                'php_tree_show', array('slug' => $node->getSlug())
+            ));
+        }
+
+        return array(
+            'form' => $form->createView()
+        );
     }
 
     /**

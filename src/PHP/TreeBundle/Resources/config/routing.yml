@@ -15,7 +15,7 @@ php_tree_add:
     defaults: { _controller: PHPTreeBundle:Index:add }
 
 php_tree_update:
-    path:     /php/tree/update
+    path:     /php/tree/update/{id}
     defaults: { _controller: PHPTreeBundle:Index:update }
 
 php_tree_remove:

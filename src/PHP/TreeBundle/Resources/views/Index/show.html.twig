@@ -4,6 +4,8 @@
 
     <h1>show</h1>
 
+    <h3><a href="{{ path('php_tree_index') }}">Main</a></h3>
+
     {% for node in nodeBySlug %}
         <p>id:      {{ node.id }}</p>
         <p>title:   {{ node.title }}</p>
@@ -11,6 +13,22 @@
         <p>content: {{ node.content }}</p>
         <p>date1:   {{ node.dateCreated|date("m/d/Y H:m:s") }}</p>
         <p>date2:   {{ node.dateUpdated|date("m/d/Y H:m:s") }}</p>
+
+        {%  if node.children is  not null %}
+            <h1>Current node tree</h1>
+            <p>title:   {{ node.title }}</p>
+
+            {% for child in node.children %}
+                <p style="margin-left: 70px">title:   {{ child.title }}</p>
+
+                {% if child.children in not null %}
+                    children
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
     {% endfor %}
 
 {% endblock %}
