@@ -5,6 +5,9 @@ app:
 _php_tree:
     resource: "@PHPTreeBundle/Resources/config/routing.yml"
 
+_js_tree:
+    resource: "@JSTreeBundle/Resources/config/routing.yml"
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
