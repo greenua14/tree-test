@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h1>show</h1>
+
+    <h3><a href="{{ path('php_tree_index') }}">Main</a></h3>
+
+    {% for node in nodeBySlug %}
+        <p>id:      {{ node.id }}</p>
+        <p>title:   {{ node.title }}</p>
+        <p>slug:    {{ node.slug }}</p>
+        <p>content: {{ node.content }}</p>
+        <p>date1:   {{ node.dateCreated|date("m/d/Y H:m:s") }}</p>
+        <p>date2:   {{ node.dateUpdated|date("m/d/Y H:m:s") }}</p>
+
+        {%  if node.children is  not null %}
+            <h1>Current node tree</h1>
+            <p>title:   {{ node.title }}</p>
+
+            {% set margin = 50 %}
+            {{ _self.recursiveChild(node, margin) }}
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% macro recursiveChild(node, margin) %}
+        {% if node.children is not null %}
+            {% for child in node.children %}
+                <p style="margin-left: {{ margin }}px">
+                    <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
+                </p>
+                {{ _self.recursiveChild(child, margin + 50) }}
+            {% endfor %}
+        {% endif %}
+    {% endmacro %}
+
+{% endblock %}

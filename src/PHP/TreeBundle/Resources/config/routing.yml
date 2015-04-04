@@ -1,0 +1,35 @@
+php_tree_index:
+    path:     /php/tree
+    defaults: { _controller: PHPTreeBundle:Index:index }
+
+php_tree_list:
+    path:     /php/tree/list
+    defaults: { _controller: PHPTreeBundle:Index:list }
+
+php_tree_show:
+    path:     /php/tree/show/{slug}
+    defaults: { _controller: PHPTreeBundle:Index:show }
+
+php_tree_add:
+    path:     /php/tree/add
+    defaults: { _controller: PHPTreeBundle:Index:add }
+
+php_tree_update:
+    path:     /php/tree/update/{id}
+    defaults: { _controller: PHPTreeBundle:Index:update }
+
+php_tree_remove:
+    path:     /php/tree/remove/{id}
+    defaults: { _controller: PHPTreeBundle:Index:remove }
+
+php_tree_treeStructure:
+    path:     /php/tree/tree_structure
+    defaults: { _controller: PHPTreeBundle:Index:treeStructure }
+
+php_tree_redirect:
+    path:     /php/redirect
+    defaults: { _controller: PHPTreeBundle:Index:redirect }
+
+php_tree_json:
+    path:     /php/json
+    defaults: { _controller: PHPTreeBundle:Index:json }

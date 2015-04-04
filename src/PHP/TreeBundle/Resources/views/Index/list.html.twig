@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h1>list</h1>
+
+    <h3><a href="{{ path('php_tree_index') }}">Main</a></h3>
+
+    <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
+
+    {% for node in nodes %}
+        <div>
+            <p>
+                <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
+
+                <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update node</a>
+                <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Remove node</a>
+            </p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

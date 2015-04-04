@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h1>Tree structure list</h1>
+
+    <h3><a href="{{ path('php_tree_index') }}">Main</a></h3>
+
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        <h2><a href="{{ path('php_tree_add') }}">Add new node</a></h2>
+    {% endif %}
+
+    {% macro recursiveChild(node, margin) %}
+        {% if node.children is not null %}
+            {% for child in node.children %}
+                <p style="margin-left: {{ margin }}px">
+                    <a href="{{ path('php_tree_show', { 'slug': child.slug }) }}"> - {{ child.title }}</a>
+
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('php_tree_update', { 'id': child.id }) }}">Update</a>
+                        <a href="{{ path('php_tree_remove', { 'id': child.id }) }}">Delete</a>
+                    {% endif %}
+                </p>
+                {{ _self.recursiveChild(child, margin + 50) }}
+            {% endfor %}
+        {% endif %}
+    {% endmacro %}
+
+    {% for node in nodes if node.parent is null %}
+        <div>
+            <p>
+                <a href="{{ path('php_tree_show', { 'slug': node.slug }) }}">{{ node.title }}</a>
+
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('php_tree_update', { 'id': node.id }) }}">Update</a>
+                    <a href="{{ path('php_tree_remove', { 'id': node.id }) }}">Delete</a>
+                {% endif %}
+            </p>
+            {% set margin = 50 %}
+            {{ _self.recursiveChild(node, margin) }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,3 @@
+php_js_index:
+    path:     /js/tree
+    defaults: { _controller: JSTreeBundle:Index:index }
