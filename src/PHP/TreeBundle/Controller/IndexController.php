@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PHP\TreeBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class IndexController extends Controller
@@ -56,6 +57,7 @@ class IndexController extends Controller
         $node = new Node();
         $formType = $this->get('node.form.type');
         $form = $this->createForm($formType, $node);
+
         $form->handleRequest($request);
 
         if($form->isValid()) {
@@ -133,4 +135,12 @@ class IndexController extends Controller
             'nodes' => $nodes
         );
     }
-} 
+
+    /**
+     * @Template()
+     */
+    public function redirectAction()
+    {
+        return new RedirectResponse('https://translate.google.com.ua/#en/uk/compliant');
+    }
+}

@@ -25,3 +25,7 @@ php_tree_remove:
 php_tree_treeStructure:
     path:     /php/tree/tree_structure
     defaults: { _controller: PHPTreeBundle:Index:treeStructure }
+
+php_tree_redirect:
+    path:     /php/redirect
+    defaults: { _controller: PHPTreeBundle:Index:redirect }
