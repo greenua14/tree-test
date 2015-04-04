@@ -8,6 +8,7 @@ use PHP\TreeBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class IndexController extends Controller
@@ -142,5 +143,18 @@ class IndexController extends Controller
     public function redirectAction()
     {
         return new RedirectResponse('https://translate.google.com.ua/#en/uk/compliant');
+    }
+
+    /**
+     * @Template()
+     */
+    public function jsonAction()
+    {
+        $response = new JsonResponse();
+        $response->setData(array(
+            'data' => 'Hello World'
+        ));
+
+        return $response;
     }
 }

@@ -29,3 +29,7 @@ php_tree_treeStructure:
 php_tree_redirect:
     path:     /php/redirect
     defaults: { _controller: PHPTreeBundle:Index:redirect }
+
+php_tree_json:
+    path:     /php/json
+    defaults: { _controller: PHPTreeBundle:Index:json }
